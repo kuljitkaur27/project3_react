@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 
-const SERVER_URL_login = 'http://localhost:3000/users.json';
+
+const SERVER_URL_login = 'http://localhost:3000/users.json?';
 
 class Market extends Component {
   constructor(){
@@ -11,15 +12,16 @@ class Market extends Component {
         username: '',
         password: ''
     };
-  localStorage.setItem('admin', 'False');
+  // localStorage.setItem('id', '');
 // Let's poll for Search from the DB via ajax
 
-  const fetchresult = () => {
-    axios.post(SERVER_URL).then((results) => {
-    this.setState({searchdata: results.data});
-    // setTimeout(fetchresult, 4000); // recursion
-
-  });
+//   const fetchresult = () => {
+//     axios.post(SERVER_URL_login).then((results) => {
+//     this.setState({searchdata: results.data});
+//     // setTimeout(fetchresult, 4000); // recursion
+//
+//   });
+// }
 
   this._handleChange = this._handleChange.bind(this);
   this._handleSubmit = this._handleSubmit.bind(this);
@@ -34,6 +36,9 @@ class Market extends Component {
   _handleSubmit(event) {
     event.preventDefault(); // Stay here and handle the submission with JS.
 
+    axios.get(`${SERVER_URL_login}?email=${this.state.username}&password=${this.state.password}`).then((results) => {
+      console.log(results);
+    })
   }
 
   render(){
@@ -47,11 +52,11 @@ class Market extends Component {
             <input type="text" name="password" onChange={ this._handleChange }/> <br/><br/>
             <input type="submit" value="Search" onClick={ this._handleSearch }/>
 
-            <input class="buttonColor" type="submit" value="Cancel" onClick={ this._handleCancel } />
           </form>
       </div>
     );
   }
 }
+
 
 export default Market;
