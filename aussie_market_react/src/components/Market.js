@@ -4,13 +4,16 @@ import axios from 'axios';
 class Market extends Component {
   constructor(){
   super();
+  this.state = {
+        login: []
+    };
   this._handleChange = this._handleChange.bind(this);
   this._handleSubmit = this._handleSubmit.bind(this);
   }
 
   // Event listener for text change
   _handleChange(event) {
-
+    this.setState({[event.target.name]:event.target.value});;
   }
 
   // Event listener for Search
@@ -19,16 +22,20 @@ class Market extends Component {
 
   }
 
-
-
   render(){
     return(
-      <form>
-      <h2><u> Login </u></h2>
-      <input type="text" text="Username" placeholder="email" onChange={this._handleChange}/>
-      <input type="text" text="Password" placeholder="password" onChange={this._handleChange}/>
-      <input type="submit" value="Submit" onClick={ this._handleSubmit }/>
-      </form>
+      <div>
+        <h3>Login</h3>
+          <form>
+            <label>Username</label>
+            <input type="text" name="username" onClick={ this._handleChange }/> <br/>
+            <label>Password</label>
+            <input type="text" name="password" onClick={ this._handleChange }/> <br/><br/>
+            <input type="submit" value="Search" onClick={ this._handleSearch }/>
+
+            <input class="buttonColor" type="submit" value="Cancel" onClick={ this._handleCancel } />
+          </form>
+      </div>
     );
   }
 }
